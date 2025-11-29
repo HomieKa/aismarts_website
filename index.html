@@ -80,79 +80,110 @@
     </section>
 
     <!-- Combined stacked product section -->
-<section class="product-stack section section--alt">
-  <div class="product-stack__sticky">
-    <div class="product-stack__cards">
-
-      <!-- Card 1: PlateWorth -->
-      <article class="product-card is-active" data-title="PlateWorth">
-        <div class="plateworth-preview">
-          <div class="plateworth-text">
-            <h2>PlateWorth – Our First Product</h2>
-            <p>PlateWorth uses historical and real-time market signals to estimate a realistic value range for custom license plates in Australia. Whether you're selling, buying, or just curious, PlateWorth gives you data-backed insights to make confident decisions.</p>
-            <a href="plateworth.html" class="btn btn-secondary">Learn More About PlateWorth</a>
-          </div>
-          <div class="plateworth-visual">
-            <div class="valuation-card">
-              <div class="valuation-header">
-                <span class="plate-state">VIC</span>
-                <span class="plate-number">KING1</span>
-              </div>
-              <div class="valuation-values">
-                <div class="value-item">
-                  <span class="value-label">Min</span>
-                  <span class="value-amount">$3,500</span>
-                </div>
-                <div class="value-item value-item--primary">
-                  <span class="value-label">Avg</span>
-                  <span class="value-amount">$4,750</span>
-                </div>
-                <div class="value-item">
-                  <span class="value-label">Max</span>
-                  <span class="value-amount">$6,200</span>
-                </div>
-              </div>
-              <div class="valuation-footer">
-                <span class="ai-badge">AI-Powered Estimate</span>
-              </div>
+    <section class="product-stack section section--alt" id="products">
+        <div class="product-stack__sticky">
+            <div class="section-intro product-stack__intro">
+                <h2>PlateWorth now. More AI decision tools next.</h2>
+                <p>Beyond valuations, we're exploring AI tools that support decisions in money, relationships, and lifestyle. Scroll the stack to see what's coming.</p>
             </div>
-          </div>
+
+            <div class="product-stack__shell">
+                <div class="product-stack__tabs" aria-hidden="true"></div>
+
+                <div class="product-stack__cards">
+                    <!-- Card 1: PlateWorth -->
+                    <article class="product-card is-active" data-title="PlateWorth" data-color="plateworth">
+                        <div class="plateworth-preview plateworth-preview--stack">
+                            <div class="plateworth-text">
+                                <h2>PlateWorth – Our First Product</h2>
+                                <p>PlateWorth uses historical and real-time market signals to estimate a realistic value range for custom license plates in Australia. Whether you're selling, buying, or just curious, PlateWorth gives you data-backed insights to make confident decisions.</p>
+                                <a href="plateworth.html" class="btn btn-secondary">Learn More About PlateWorth</a>
+                            </div>
+                            <div class="plateworth-visual">
+                                <div class="valuation-card">
+                                    <div class="valuation-header">
+                                        <span class="plate-state">VIC</span>
+                                        <span class="plate-number">KING1</span>
+                                    </div>
+                                    <div class="valuation-values">
+                                        <div class="value-item">
+                                            <span class="value-label">Min</span>
+                                            <span class="value-amount">$3,500</span>
+                                        </div>
+                                        <div class="value-item value-item--primary">
+                                            <span class="value-label">Avg</span>
+                                            <span class="value-amount">$4,750</span>
+                                        </div>
+                                        <div class="value-item">
+                                            <span class="value-label">Max</span>
+                                            <span class="value-amount">$6,200</span>
+                                        </div>
+                                    </div>
+                                    <div class="valuation-footer">
+                                        <span class="ai-badge">AI-Powered Estimate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 2: Money -->
+                    <article class="product-card" data-title="Money" data-color="money">
+                        <div class="future-card future-card--stack">
+                            <div class="future-card__header">
+                                <span class="future-icon">💰</span>
+                                <div>
+                                    <p class="future-pill">Coming soon</p>
+                                    <h3>Money</h3>
+                                </div>
+                            </div>
+                            <p>Financial decisions backed by intelligent analysis.</p>
+                            <ul class="future-list">
+                                <li>Signals on timing, risk, and ROI.</li>
+                                <li>Scenario planning with clear guardrails.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- Card 3: Relationships -->
+                    <article class="product-card" data-title="Relationships" data-color="relationships">
+                        <div class="future-card future-card--stack">
+                            <div class="future-card__header">
+                                <span class="future-icon">💝</span>
+                                <div>
+                                    <p class="future-pill">Coming soon</p>
+                                    <h3>Relationships</h3>
+                                </div>
+                            </div>
+                            <p>Tools that help navigate complex personal connections.</p>
+                            <ul class="future-list">
+                                <li>AI drafts that keep tough conversations constructive.</li>
+                                <li>Signals that surface shared intent over noise.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- Card 4: Lifestyle -->
+                    <article class="product-card" data-title="Lifestyle" data-color="lifestyle">
+                        <div class="future-card future-card--stack">
+                            <div class="future-card__header">
+                                <span class="future-icon">🌟</span>
+                                <div>
+                                    <p class="future-pill">Coming soon</p>
+                                    <h3>Lifestyle</h3>
+                                </div>
+                            </div>
+                            <p>Everyday choices made simpler with AI insights.</p>
+                            <ul class="future-list">
+                                <li>Personalized recommendations grounded in data.</li>
+                                <li>Confidence bands so you know when to act.</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
         </div>
-      </article>
-
-      <!-- Card 2: Money -->
-      <article class="product-card" data-title="Money">
-        <div class="future-card">
-          <div class="future-icon">💰</div>
-          <h2>Money</h2>
-          <p>Financial decisions backed by intelligent analysis.</p>
-        </div>
-      </article>
-
-      <!-- Card 3: Relationships -->
-      <article class="product-card" data-title="Relationships">
-        <div class="future-card">
-          <div class="future-icon">💝</div>
-          <h2>Relationships</h2>
-          <p>Tools that help navigate complex personal connections.</p>
-        </div>
-      </article>
-
-      <!-- Card 4: Lifestyle -->
-      <article class="product-card" data-title="Lifestyle">
-        <div class="future-card">
-          <div class="future-icon">🌟</div>
-          <h2>Lifestyle</h2>
-          <p>Everyday choices made simpler with AI insights.</p>
-        </div>
-      </article>
-
-    </div>
-
-    <!-- Small “previous product” chips in top-left -->
-    <div class="product-stack__tabs" aria-hidden="true"></div>
-  </div>
-</section>
+    </section>
 
 
     <!-- Vision & Founders Section -->

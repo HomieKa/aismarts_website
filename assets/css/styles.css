@@ -10,6 +10,8 @@
     --color-medium-grey: #94a3b8;
     --color-text: #334155;
     --color-white: #ffffff;
+    --color-grey-bg: #f5f5f5;
+    --color-dark-grey-bg:#efefef; 
 
     --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica', 'Arial', sans-serif;
 
@@ -50,7 +52,7 @@ body {
     font-size: 16px;
     line-height: 1.6;
     color: var(--color-text);
-    background-color: var(--color-light-bg);
+    background-color: var(--color-grey-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -109,8 +111,8 @@ img {
    ==================================== */
 .container {
     max-width: var(--container-max);
+    width: 80%;
     margin: 0 auto;
-    padding: 0 1.5rem;
 }
 
 /* ====================================
@@ -140,6 +142,7 @@ img {
     gap: 2rem;
     transition: all 0.3s ease;
     margin-bottom: 2.5rem;
+    padding: 0 1.5rem;
 }
 
 .header.scrolled .header-wrapper {
@@ -323,6 +326,7 @@ img {
     grid-template-columns: 1fr;
     gap: var(--spacing-md);
     align-items: center;
+    padding: 0 1.5rem;
 }
 
 .hero-text h1{
@@ -339,7 +343,7 @@ img {
 }
 
 .underline {
-    border-bottom: 5px solid var(--color-deep-blue);
+    border-bottom: 5px solid var(--color-green);
     padding-bottom: 1px;
 }
 
@@ -517,7 +521,7 @@ img {
    SECTIONS
    ==================================== */
 .section {
-    padding: var(--spacing-lg) 0;
+    padding: var(--spacing-lg) 1.5rem;
 }
 
 .section--alt {
@@ -958,6 +962,7 @@ img {
     gap: 2rem;
     align-items: center;
     position: relative;
+    padding: 0 1.5rem;
 }
 
 .cta-content {
@@ -1005,7 +1010,7 @@ img {
 
     .cta-content {
         padding: 4rem 3.5rem;
-        margin-right: -3rem;
+        margin-right: 0;
     }
 
     .cta-image-card {
@@ -1032,30 +1037,39 @@ img {
 
 .product-stack {
   position: relative;
-  height: 400vh; /* long enough for 4 cards to step through */
+  height: 700vh; /* Longer scroll distance for smoother transitions (40% increase) */
   background: var(--color-light-bg);
 }
 
 .product-stack__sticky {
   position: sticky;
-  top: 96px; /* adjust based on your navbar height */
-  height: calc(100vh - 96px - 48px); /* full viewport minus header + a bit of padding */
-  max-width: 1100px;
+  top: 96px; /* Stick below header */
+  height: calc(100vh - 96px - 48px); /* viewport minus header */
+  max-width: var(--container-max);
+  width: 80%;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  align-items: center;
+  margin-top: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: 0;
 }
 
 /* Container that holds all overlapping cards */
 .product-stack__cards {
   position: relative;
+  width: 100%;
+  flex: 1; /* Take remaining space after intro */
+  min-height: 400px;
+  max-height: 600px;
 }
 
 /* Base product card style */
 .product-card {
   position: absolute;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   background: var(--color-white);
   border-radius: 1.5rem;
   box-shadow: 0 20px 60px rgba(15, 23, 42, 0.18);
@@ -1067,6 +1081,26 @@ img {
     transform 0.45s ease,
     opacity 0.45s ease,
     box-shadow 0.45s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+}
+
+/* Different background colors for each product card */
+.product-card[data-color="plateworth"] {
+  background: var(--color-dark-grey-bg);
+}
+
+.product-card[data-color="money"] {
+  background: var(--color-dark-grey-bg);
+}
+.product-card[data-color="relationships"] {
+  background: var(--color-dark-grey-bg);
+}
+
+.product-card[data-color="lifestyle"] {
+  background: var(--color-dark-grey-bg);
 }
 
 /* Active front card */
@@ -1076,12 +1110,13 @@ img {
   z-index: 30;
 }
 
-/* Cards we’ve already scrolled past: small offset + scale */
+/* Cards we've already scrolled past: fade out */
 .product-card.is-past {
-  opacity: 1;
-  transform: translate(-1.4rem, -1.4rem) scale(0.92);
-  z-index: 10;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  opacity: 0;
+  transform: translateY(-40px) scale(0.96);
+  z-index: 1;
+  pointer-events: none;
+  transition: all 0.4s ease;
 }
 
 /* Future cards: behind, slightly down */
@@ -1091,12 +1126,12 @@ img {
   z-index: 1;
 }
 
-/* Little “previous product” chips */
+/* Little "previous product" chips - hidden since we use card tabs now */
 .product-stack__tabs {
   position: absolute;
   top: 1.5rem;
   left: 1.5rem;
-  display: flex;
+  display: none; /* Hidden - we show the actual cards as tabs instead */
   flex-direction: column;
   gap: 0.4rem;
   pointer-events: none;
@@ -1113,6 +1148,173 @@ img {
   box-shadow: 0 6px 14px rgba(15, 23, 42, 0.3);
 }
 
+/* Intro section above the sticky cards */
+.product-stack__intro {
+  padding: 1.5rem 1.5rem 1.5rem 1.5rem;
+  position: relative;
+  z-index: 1;
+  background: var(--color-light-bg);
+  margin-bottom: 1rem;
+  flex-shrink: 0; /* Don't shrink when space is tight */
+}
+
+/* PlateWorth card layout - side by side */
+.plateworth-preview--stack {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  width: 100%;
+  max-width: 100%;
+}
+
+.plateworth-preview--stack .plateworth-text h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  padding-top: 0.5rem;
+}
+
+.plateworth-preview--stack .plateworth-text p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+/* Make PlateWorth header compact when in tab state */
+.product-card.is-past .plateworth-preview--stack .plateworth-text h2 {
+  font-size: 1.5rem;
+  margin-bottom: 0;
+  padding-top: 0.75rem;
+}
+
+.plateworth-preview--stack .valuation-card {
+  max-width: 100%;
+}
+
+/* Future card layout - vertical with header */
+.future-card--stack {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.future-card__header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-top: 0.5rem; /* Extra padding for tab view */
+}
+
+.future-card__header .future-icon {
+  font-size: 3.5rem;
+  line-height: 1;
+  margin: 0;
+}
+
+.future-card__header h3 {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+/* When card is in past state (tab), make header more compact */
+.product-card.is-past .future-card__header {
+  gap: 1rem;
+  margin-bottom: 0;
+}
+
+.product-card.is-past .future-card__header .future-icon {
+  font-size: 2.5rem;
+}
+
+.product-card.is-past .future-card__header h3 {
+  font-size: 1.25rem;
+}
+
+.product-card.is-past .future-pill {
+  font-size: 0.65rem;
+  padding: 0.2rem 0.6rem;
+}
+
+.future-pill {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-medium-grey);
+  background: var(--color-light-bg);
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.5rem;
+}
+
+.future-card--stack > p {
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.future-list {
+  list-style: none;
+  padding: 0;
+}
+
+.future-list li {
+  position: relative;
+  padding-left: 1.75rem;
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.future-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--color-deep-blue);
+  font-weight: 700;
+}
+
+/* Wrapper for proper spacing */
+.product-stack__shell {
+  position: relative;
+  padding: 0 1.5rem;
+  width: 100%; /* Fill parent sticky container */
+  margin: 0 auto;
+  flex: 1; /* Take remaining space */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Tab animation on appear */
+.product-stack__tab {
+  animation: slideInTab 0.3s ease-out backwards;
+}
+
+@keyframes slideInTab {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Reduce padding on shorter viewports */
+@media (max-height: 800px) {
+  .product-card {
+    padding: 2rem;
+  }
+
+  .plateworth-preview--stack {
+    gap: 2rem;
+  }
+}
+
 /* Let mobile fall back to simple stacking */
 @media (max-width: 768px) {
   .product-stack {
@@ -1126,17 +1328,33 @@ img {
 
   .product-stack__cards {
     position: static;
+    height: auto; /* Remove fixed height on mobile */
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
   }
 
   .product-card {
     position: static;
     opacity: 1 !important;
     transform: none !important;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
+    padding: 2rem;
   }
 
   .product-stack__tabs {
     display: none;
+  }
+
+  .plateworth-preview--stack {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .future-card__header {
+    flex-direction: column;
+    text-align: center;
+    gap: 1rem;
   }
 }
 

@@ -3,7 +3,11 @@
     "allow": [
       "Bash(dir /b \"c:\\Users\\khair\\Documents\\Python\\aismarts_website\")",
       "Bash(dir /b \"c:\\Users\\khair\\Documents\\Python\\aismarts_website\\assets\\images\")",
-      "Bash(python -m http.server:*)"
+      "Bash(python -m http.server:*)",
+      "Bash(python3:*)",
+      "Bash(open -a \"Google Chrome\" http://localhost:8000/index.html)",
+      "Bash(osascript:*)",
+      "Bash(open -a \"Google Chrome\" http://localhost:8000/test-stack.html)"
     ],
     "deny": [],
     "ask": []

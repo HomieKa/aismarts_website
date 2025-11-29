@@ -102,105 +102,77 @@ function initSiteScripts() {
         });
     }
 
-    
+
     // ------------------------------
-    // STACKED SCROLLING CARDS
+    // PRODUCT STACK SCROLLING CARDS
     // ------------------------------
-    if (window.innerWidth > 768) {
-        const section = document.querySelector('.stacked-cards-section');
-        const container = document.querySelector('.stacked-cards-container');
-        const cards = Array.from(document.querySelectorAll('.stack-card'));
-        const pinnedTabsContainer = document.querySelector('.pinned-tabs');
+    const section = document.querySelector('.product-stack');
+    if (section && window.innerWidth > 768) {
+        const cards = Array.from(section.querySelectorAll('.product-card'));
+        const tabsContainer = section.querySelector('.product-stack__tabs');
 
-        if (section && container && cards.length && pinnedTabsContainer) {
-            const cardCount = cards.length;
-
-            // Build pinned tabs from each card's .stack-card-tab content
-            pinnedTabsContainer.innerHTML = '';
-            cards.forEach(card => {
-                const tabContent = card.querySelector('.stack-card-tab');
-                if (!tabContent) return;
-
-                const pinnedTab = document.createElement('div');
-                pinnedTab.className = 'pinned-tab';
-                pinnedTab.dataset.cardId = card.dataset.cardId || '';
-
-                // Copy inner HTML but adjust class names
-                let html = tabContent.innerHTML;
-                html = html.replace(/tab-icon/g, 'pinned-tab-icon');
-                html = html.replace(/tab-title/g, 'pinned-tab-title');
-                pinnedTab.innerHTML = html;
-
-                pinnedTabsContainer.appendChild(pinnedTab);
+        if (cards.length && tabsContainer) {
+            // Set initial states
+            cards.forEach((card, i) => {
+                card.classList.add(i === 0 ? 'is-active' : 'is-future');
             });
 
-            const pinnedTabs = Array.from(
-                pinnedTabsContainer.querySelectorAll('.pinned-tab')
-            );
+            const steps = cards.length;
 
-            function updateStackedCards() {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
+            function updateProductStack() {
+                const rect = section.getBoundingClientRect();
                 const viewportHeight = window.innerHeight;
-
-                // how far we've scrolled inside this section
+                const sectionTop = section.offsetTop;
                 const scrollY = window.scrollY;
-                const distanceIntoSection = scrollY - sectionTop;
-                const totalScrollable = sectionHeight - viewportHeight;
 
-                if (totalScrollable <= 0) return;
+                // Calculate how far we've scrolled into the section
+                const scrollIntoSection = scrollY - sectionTop + viewportHeight;
 
-                let progress = distanceIntoSection / totalScrollable;
-                progress = Math.max(0, Math.min(1, progress));
+                // Define card transition thresholds (in pixels from section start)
+                // Card 1 stays until 2100px, then each card gets 700px (40% increase)
+                let activeIndex = 0;
+                if (scrollIntoSection >= 3500) {
+                    activeIndex = 3; // Lifestyle
+                } else if (scrollIntoSection >= 2800) {
+                    activeIndex = 2; // Relationships
+                } else if (scrollIntoSection >= 2100) {
+                    activeIndex = 1; // Money
+                } else {
+                    activeIndex = 0; // PlateWorth
+                }
 
-                // map 0–1 progress to card indices
-                const activeIndex = Math.round(progress * (cardCount - 1));
-
-                cards.forEach((card, index) => {
-                    card.classList.remove('past', 'active', 'upcoming');
-
-                    if (index < activeIndex) {
-                        card.classList.add('past');
-                    } else if (index === activeIndex) {
-                        card.classList.add('active');
+                // Update card states - simple fade in/out
+                cards.forEach((card, i) => {
+                    card.classList.remove('is-active', 'is-past', 'is-future');
+                    if (i < activeIndex) {
+                        card.classList.add('is-past');
+                    } else if (i === activeIndex) {
+                        card.classList.add('is-active');
                     } else {
-                        card.classList.add('upcoming');
-                    }
-                });
-
-                // show pinned tabs for past cards only
-                pinnedTabs.forEach((tab, index) => {
-                    if (index < activeIndex) {
-                        tab.classList.add('visible');
-                        tab.style.transitionDelay = `${index * 0.06}s`;
-                    } else {
-                        tab.classList.remove('visible');
-                        tab.style.transitionDelay = '0s';
+                        card.classList.add('is-future');
                     }
                 });
             }
 
-            // initial state
-            updateStackedCards();
+            // Initial state
+            updateProductStack();
 
+            // Smooth scroll handling with requestAnimationFrame
             let ticking = false;
-            window.addEventListener(
-                'scroll',
-                () => {
-                    if (!ticking) {
-                        window.requestAnimationFrame(() => {
-                            updateStackedCards();
-                            ticking = false;
-                        });
-                        ticking = true;
-                    }
-                },
-                { passive: true }
-            );
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateProductStack();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            }, { passive: true });
 
+            // Handle resize
             window.addEventListener('resize', () => {
                 if (window.innerWidth > 768) {
-                    updateStackedCards();
+                    updateProductStack();
                 }
             });
         }

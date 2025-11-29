@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Stack Test</title>
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        /* Debug helpers */
+        body { margin: 0; }
+        .debug-info {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 12px;
+            z-index: 9999;
+        }
+        .spacer {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="debug-info">
+        <div>Active Card: <span id="activeCard">-</span></div>
+        <div>Progress: <span id="progress">-</span></div>
+        <div>Scroll Y: <span id="scrollY">-</span></div>
+    </div>
+
+    <div class="spacer">
+        <h1>Scroll down to test the product stack</h1>
+    </div>
+
+    <!-- Combined stacked product section -->
+    <section class="product-stack section section--alt" id="products">
+        <div class="product-stack__sticky">
+            <div class="section-intro product-stack__intro">
+                <h2>PlateWorth now. More AI decision tools next.</h2>
+                <p>Scroll the stack to see what's coming.</p>
+            </div>
+
+            <div class="product-stack__shell">
+                <div class="product-stack__tabs" aria-hidden="true"></div>
+
+                <div class="product-stack__cards">
+                    <!-- Card 1: PlateWorth -->
+                    <article class="product-card is-active" data-title="PlateWorth" data-color="plateworth">
+                        <div class="plateworth-preview plateworth-preview--stack">
+                            <div class="plateworth-text">
+                                <h2>PlateWorth – Our First Product</h2>
+                                <p>PlateWorth uses historical and real-time market signals to estimate a realistic value range for custom license plates in Australia.</p>
+                                <a href="#" class="btn btn-secondary">Learn More</a>
+                            </div>
+                            <div class="plateworth-visual">
+                                <div class="valuation-card">
+                                    <div class="valuation-header">
+                                        <span class="plate-state">VIC</span>
+                                        <span class="plate-number">KING1</span>
+                                    </div>
+                                    <div class="valuation-values">
+                                        <div class="value-item">
+                                            <span class="value-label">Min</span>
+                                            <span class="value-amount">$3,500</span>
+                                        </div>
+                                        <div class="value-item value-item--primary">
+                                            <span class="value-label">Avg</span>
+                                            <span class="value-amount">$4,750</span>
+                                        </div>
+                                        <div class="value-item">
+                                            <span class="value-label">Max</span>
+                                            <span class="value-amount">$6,200</span>
+                                        </div>
+                                    </div>
+                                    <div class="valuation-footer">
+                                        <span class="ai-badge">AI-Powered Estimate</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Card 2: Money -->
+                    <article class="product-card" data-title="Money" data-color="money">
+                        <div class="future-card future-card--stack">
+                            <div class="future-card__header">
+                                <span class="future-icon">💰</span>
+                                <div>
+                                    <p class="future-pill">Coming soon</p>
+                                    <h3>Money</h3>
+                                </div>
+                            </div>
+                            <p>Financial decisions backed by intelligent analysis.</p>
+                            <ul class="future-list">
+                                <li>Signals on timing, risk, and ROI.</li>
+                                <li>Scenario planning with clear guardrails.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- Card 3: Relationships -->
+                    <article class="product-card" data-title="Relationships" data-color="relationships">
+                        <div class="future-card future-card--stack">
+                            <div class="future-card__header">
+                                <span class="future-icon">💝</span>
+                                <div>
+                                    <p class="future-pill">Coming soon</p>
+                                    <h3>Relationships</h3>
+                                </div>
+                            </div>
+                            <p>Tools that help navigate complex personal connections.</p>
+                            <ul class="future-list">
+                                <li>AI drafts that keep tough conversations constructive.</li>
+                                <li>Signals that surface shared intent over noise.</li>
+                            </ul>
+                        </div>
+                    </article>
+
+                    <!-- Card 4: Lifestyle -->
+                    <article class="product-card" data-title="Lifestyle" data-color="lifestyle">
+                        <div class="future-card future-card--stack">
+                            <div class="future-card__header">
+                                <span class="future-icon">🌟</span>
+                                <div>
+                                    <p class="future-pill">Coming soon</p>
+                                    <h3>Lifestyle</h3>
+                                </div>
+                            </div>
+                            <p>Everyday choices made simpler with AI insights.</p>
+                            <ul class="future-list">
+                                <li>Personalized recommendations grounded in data.</li>
+                                <li>Confidence bands so you know when to act.</li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="spacer">
+        <h1>End of test - scroll back up</h1>
+    </div>
+
+    <script>
+        // Debug version with logging
+        const section = document.querySelector('.product-stack');
+        if (section) {
+            const cards = Array.from(section.querySelectorAll('.product-card'));
+            const tabsContainer = section.querySelector('.product-stack__tabs');
+
+            console.log('Product stack found:', section);
+            console.log('Cards found:', cards.length);
+            console.log('Tabs container:', tabsContainer);
+
+            if (cards.length && tabsContainer) {
+                // Set initial states
+                cards.forEach((card, i) => {
+                    card.classList.add(i === 0 ? 'is-active' : 'is-future');
+                });
+
+                const steps = cards.length;
+
+                function updateProductStack() {
+                    const rect = section.getBoundingClientRect();
+                    const viewportHeight = window.innerHeight;
+                    const sectionTop = section.offsetTop;
+                    const scrollY = window.scrollY;
+
+                    // Calculate how far we've scrolled into the section
+                    const scrollIntoSection = scrollY - sectionTop + viewportHeight;
+
+                    // Define card transition thresholds (in pixels from section start)
+                    // Card 1 stays until 1500px, then each card gets 500px
+                    let activeIndex = 0;
+                    if (scrollIntoSection >= 2500) {
+                        activeIndex = 3; // Lifestyle
+                    } else if (scrollIntoSection >= 2000) {
+                        activeIndex = 2; // Relationships
+                    } else if (scrollIntoSection >= 1500) {
+                        activeIndex = 1; // Money
+                    } else {
+                        activeIndex = 0; // PlateWorth
+                    }
+
+                    // Debug output
+                    document.getElementById('activeCard').textContent = activeIndex + 1;
+                    document.getElementById('progress').textContent = scrollIntoSection.toFixed(0) + 'px into section';
+                    document.getElementById('scrollY').textContent = window.scrollY;
+
+                    // Update card states with file binder tab stacking
+                    cards.forEach((card, i) => {
+                        card.classList.remove('is-active', 'is-past', 'is-future');
+                        if (i < activeIndex) {
+                            card.classList.add('is-past');
+                            // Stack like file tabs - show only top 85px of each card
+                            // Each tab is 85px below the previous one
+                            const tabHeight = 85; // Height of visible tab portion
+                            const tabOffset = i * tabHeight; // Vertical offset for this tab
+                            card.style.zIndex = 10 + i; // Higher z-index for later tabs
+                            card.style.transform = `translateY(calc(-100% + ${tabOffset}px)) scale(0.96)`;
+                        } else if (i === activeIndex) {
+                            card.classList.add('is-active');
+                            card.style.zIndex = 30;
+                            card.style.transform = '';
+                        } else {
+                            card.classList.add('is-future');
+                            card.style.zIndex = 1;
+                            card.style.transform = '';
+                        }
+                    });
+
+                    // Update tabs - show chips for past cards
+                    tabsContainer.innerHTML = '';
+                    cards.forEach((card, i) => {
+                        if (i < activeIndex) {
+                            const title = card.dataset.title || `Product ${i + 1}`;
+                            const chip = document.createElement('div');
+                            chip.className = 'product-stack__tab';
+                            chip.textContent = title;
+                            tabsContainer.appendChild(chip);
+                        }
+                    });
+                }
+
+                // Initial state
+                updateProductStack();
+
+                // Smooth scroll handling with requestAnimationFrame
+                let ticking = false;
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        window.requestAnimationFrame(() => {
+                            updateProductStack();
+                            ticking = false;
+                        });
+                        ticking = true;
+                    }
+                }, { passive: true });
+
+                // Handle resize
+                window.addEventListener('resize', () => {
+                    updateProductStack();
+                });
+            } else {
+                console.error('Missing required elements');
+            }
+        } else {
+            console.error('Product stack section not found');
+        }
+    </script>
+</body>
+</html>
